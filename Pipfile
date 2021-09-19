@@ -4,9 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pyyaml = "*"
 selenium = "*"
 chromedriver-binary = "==92.0.4515.107.0"
-pyyaml = "*"
+withings-api = "*"
 prometheus-client = "*"
 
 [dev-packages]
