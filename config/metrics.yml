@@ -1,0 +1,385 @@
+meas:
+  request:
+    path: /measure
+    action: getmeas
+  labels:
+    key: &meas_labels [category, hash_deviceid]
+    value: [category]
+  metrics:
+    1:
+      name: weight
+      desc: Weight (kg)
+      type: gauge
+      unit: kg
+      labels: *meas_labels
+    4:
+      name: height
+      desc: Height (meter)
+      type: gauge
+      unit: meter
+      labels: *meas_labels
+    5:
+      name: fat_free_mass
+      desc: Fat Free Mass (kg)
+      type: gauge
+      unit: kg
+      labels: *meas_labels
+    6:
+      name: fat_ratio
+      desc: Fat Ratio (%)
+      type: gauge
+      unit: percent
+      labels: *meas_labels
+    8:
+      name: fat_mass_weight
+      desc: Fat Mass Weight (kg)
+      type: gauge
+      unit: kg
+      labels: *meas_labels
+    9:
+      name: diastolic_blood_pressure
+      desc: Diastolic Blood Pressure (mmHg)
+      type: gauge
+      unit: mmhg
+      labels: *meas_labels
+    10:
+      name: systolic_blood_pressure
+      desc: Systolic Blood Pressure (mmHg)
+      type: gauge
+      unit: mmhg
+      labels: *meas_labels
+    11:
+      name: heart_pulse
+      desc: Heart Pulse (bpm) - only for BPM and scale devices
+      type: gauge
+      unit: bpm
+      labels: *meas_labels
+    12:
+      name: temperature
+      desc: Temperature (celsius)
+      type: gauge
+      unit: celsius
+      labels: *meas_labels
+    54:
+      name: spo2
+      desc: SP02 (%)
+      type: gauge
+      unit: percent
+      labels: *meas_labels
+    71:
+      name: body_temperature
+      desc: Body Temperature (celsius)
+      type: gauge
+      unit: celsius
+      labels: *meas_labels
+    73:
+      name: skin_temperature
+      desc: Skin Temperature (celsius)
+      type: gauge
+      unit: celsius
+      labels: *meas_labels
+    76:
+      name: muscle_mass
+      desc: Muscle Mass (kg)
+      type: gauge
+      unit: kg
+      labels: *meas_labels
+    77:
+      name: hydration
+      desc: Hydration (kg)
+      type: gauge
+      unit: kg
+      labels: *meas_labels
+    88:
+      name: bone_mass
+      desc: Bone Mass (kg)
+      type: gauge
+      unit: kg
+      labels: *meas_labels
+    91:
+      name: pulse_wave_velocity
+      desc: Pulse Wave Velocity (m/s)
+      type: gauge
+      unit: m/s
+      labels: *meas_labels
+    123:
+      name: vo2_max
+      desc: VO2 max is a numerical measurement of your body’s ability to consume oxygen (ml/min/kg).
+      type: gauge
+      unit: ml/min/kg
+      labels: *meas_labels
+activity:
+  request:
+    path: /v2/measure
+    action: getactivity
+  labels:
+    key: &activity_labels [hash_deviceid, brand, is_tracker]
+    value: *activity_labels
+    exclude: [deviceid, timezone, date]
+  metrics:
+    steps:
+      name: steps
+      desc: Number of steps.
+      type: counter
+      unit: steps
+      labels: *activity_labels
+    distance:
+      name: distance
+      desc: Distance travelled (in meters). 
+      type: counter
+      unit: meters
+      labels: *activity_labels
+    elevation:
+      name: elevation
+      desc: Number of floors climbed. 
+      type: counter
+      unit: floors
+      labels: *activity_labels
+    soft:
+      name: soft
+      desc: Duration of soft activities (in seconds). 
+      type: counter
+      unit: seconds
+      labels: *activity_labels
+    moderate:
+      name: moderate
+      desc: Duration of moderate activities (in seconds). 
+      type: counter
+      unit: seconds
+      labels: *activity_labels
+    intense:
+      name: intense
+      desc: Duration of intense activities (in seconds). 
+      type: counter
+      unit: seconds
+      labels: *activity_labels
+    active:
+      name: active
+      desc: Sum of intense and moderate activity durations (in seconds).
+      type: counter
+      unit: seconds
+      labels: *activity_labels
+    calories:
+      name: calories
+      desc: Active calories burned (in Kcal).
+      type: counter
+      unit: kcal
+      labels: *activity_labels
+    totalcalories:
+      name: totalcalories
+      desc: Total calories burned (in Kcal).
+      type: counter
+      unit: kcal
+      labels: *activity_labels
+    hr_average:
+      name: hr_average
+      desc: Average heart rate.
+      type: gauge
+      unit: bpm
+      labels: *activity_labels
+    hr_min:
+      name: hr_min
+      desc: Minimal heart rate. 
+      type: gauge
+      unit: bpm
+      labels: *activity_labels
+    hr_max:
+      name: hr_max
+      desc: Maximal heart rate.
+      type: gauge
+      unit: bpm
+      labels: *activity_labels
+    hr_zone_0:
+      name: hr_zone_0
+      desc: Duration in seconds when heart rate was in a light zone
+      type: gauge
+      unit: seconds
+      labels: *activity_labels
+    hr_zone_1:
+      name: hr_zone_1
+      desc: Duration in seconds when heart rate was in a moderate zone
+      type: counter
+      unit: seconds
+      labels: *activity_labels
+    hr_zone_2:
+      name: hr_zone_2
+      desc: Duration in seconds when heart rate was in an intense zone
+      type: counter
+      unit: seconds
+      labels: *activity_labels
+    hr_zone_3:
+      name: hr_zone_3
+      desc: Duration in seconds when heart rate was in maximal zone
+      type: counter
+      unit: seconds
+      labels: *activity_labels
+sleep:
+  request:
+    path: /v2/sleep
+    action: getsummary
+  labels:
+    key: &sleep_labels [model, model_id, hash_deviceid]
+    value: *sleep_labels
+  metrics:
+    nb_rem_episodes:
+      name: nb_rem_episodes
+      desc: Count of the REM sleep phases.
+      type: counter
+      unit: times
+      labels: *sleep_labels
+    sleep_efficiency:
+      name: sleep_efficiency
+      desc: Ratio of the total sleep time over the time spent in bed.
+      type: gauge
+      unit: percent
+      labels: *sleep_labels
+    sleep_latency:
+      name: sleep_latency
+      desc: Time spent in bed before falling asleep.
+      type: counter
+      unit: seconds
+      labels: *sleep_labels
+    total_sleep_time:
+      name: sleep_time
+      desc: Total time spent asleep. Sum of light, deep and rem durations. 
+      type: counter
+      unit: seconds
+      labels: *sleep_labels
+    total_timeinbed:
+      name: timeinbed
+      desc: Total time spent in bed.
+      type: counter
+      unit: seconds
+      labels: *sleep_labels
+    wakeup_latency:
+      name: wakeup_latency
+      desc: Time spent in bed after waking up.
+      type: counter
+      unit: seconds
+      labels: *sleep_labels
+    waso:
+      name: waso
+      desc: Time spent awake in bed after falling asleep for the 1st time during the night.
+      type: gauge
+      unit: seconds
+      labels: *sleep_labels
+    asleepduration:
+      name: asleepduration
+      desc: Duration of sleep when night comes from external source (light, deep and rem sleep durations are null in this case).
+      type: counter
+      unit: seconds
+      labels: *sleep_labels
+    breathing_disturbances_intensity:
+      name: breathing_disturbances_intensity
+      desc: Intensity of breathing disturbances
+      type: gauge
+      unit: times
+      labels: *sleep_labels
+    # deepsleepduration:
+    #   name: deepsleepduration
+    #   desc: Duration in state deep sleep (in seconds).
+    #   type: gauge
+    #   unit: seconds
+    #   labels: *sleep_labels
+    # durationtosleep:
+    #   name: durationtosleep
+    #   desc: Time to sleep (in seconds). (deprecated)
+    #   type: counter
+    #   unit: seconds
+    #   labels: *sleep_labels
+    # durationtowakeup:
+    #   name: durationtowakeup
+    #   desc: Time to wake up (in seconds). (deprecated)
+    #   type: gauge
+    #   unit: seconds
+    #   labels: *sleep_labels
+    hr_average:
+      name: hr_average
+      desc: Average heart rate.
+      type: gauge
+      unit: bpm
+      labels: *sleep_labels
+    hr_max:
+      name: hr_max
+      desc: Maximal heart rate.
+      type: gauge
+      unit: bpm
+      labels: *sleep_labels
+    hr_min:
+      name: hr_min
+      desc: Minimal heart rate.
+      type: gauge
+      unit: bpm
+      labels: *sleep_labels
+    lightsleepduration:
+      name: lightsleepduration
+      desc: Duration in state light sleep (in seconds).
+      type: counter
+      unit: seconds
+      labels: *sleep_labels
+    # night_events:
+    #   name: 
+    #   desc: Events list happened during the night
+    #   type: info
+    #   unit: 
+    #   labels: *sleep_labels
+    out_of_bed_count:
+      name: out_of_bed
+      desc: Number of times the user got out of bed during the night. 
+      type: counter
+      unit: times
+      labels: *sleep_labels
+    remsleepduration:
+      name: remsleepduration
+      desc: Duration in state REM sleep (in seconds).
+      type: counter
+      unit: seconds
+      labels: *sleep_labels
+    rr_average:
+      name: rr_average
+      desc: Average respiration rate. 
+      type: gauge
+      unit: times
+      labels: *sleep_labels
+    rr_max:
+      name: rr_max
+      desc: Maximal respiration rate. 
+      type: gauge
+      unit: times
+      labels: *sleep_labels
+    rr_min:
+      name: rr_min
+      desc: Minimal respiration rate. 
+      type: gauge
+      unit: times
+      labels: *sleep_labels
+    sleep_score:
+      name: sleep_score
+      desc: Sleep score
+      type: gauge
+      unit: pt
+      labels: *sleep_labels
+    snoring:
+      name: snoring
+      desc: Total snoring time
+      type: counter
+      unit: times
+      labels: *sleep_labels
+    snoringepisodecount:
+      name: snoringepisode
+      desc: Numbers of snoring episodes of at least one minute
+      type: counter
+      unit: times
+      labels: *sleep_labels
+    wakeupcount:
+      name: wakeup
+      desc: Number of times the user woke up while in bed. Does not include the number of times the user got out of bed. 
+      type: counter
+      unit: times
+      labels: *sleep_labels
+    wakeupduration:
+      name: wakeupduration
+      desc: Time spent awake (in seconds). 
+      type: counter
+      unit: seconds
+      labels: *sleep_labels

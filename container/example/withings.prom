@@ -1,0 +1,225 @@
+# HELP withings_meas_weight Weight (kg)
+# TYPE withings_meas_weight gauge
+withings_meas_weight{category="1",hash_deviceid="yourdeviceid"} 60.0
+# HELP withings_meas_fat_mass_weight Fat Mass Weight (kg)
+# TYPE withings_meas_fat_mass_weight gauge
+withings_meas_fat_mass_weight{category="1",hash_deviceid="yourdeviceid"} 10.0
+# HELP withings_meas_muscle_mass Muscle Mass (kg)
+# TYPE withings_meas_muscle_mass gauge
+withings_meas_muscle_mass{category="1",hash_deviceid="yourdeviceid"} 50.0
+# HELP withings_meas_hydration Hydration (kg)
+# TYPE withings_meas_hydration gauge
+withings_meas_hydration{category="1",hash_deviceid="yourdeviceid"} 30.0
+# HELP withings_meas_bone_mass Bone Mass (kg)
+# TYPE withings_meas_bone_mass gauge
+withings_meas_bone_mass{category="1",hash_deviceid="yourdeviceid"} 2.5
+# HELP withings_meas_fat_ratio Fat Ratio (%)
+# TYPE withings_meas_fat_ratio gauge
+withings_meas_fat_ratio{category="1",hash_deviceid="yourdeviceid"} 16.666
+# HELP withings_meas_fat_free_mass Fat Free Mass (kg)
+# TYPE withings_meas_fat_free_mass gauge
+withings_meas_fat_free_mass{category="1",hash_deviceid="yourdeviceid"} 50.0
+# HELP withings_meas_temperature Temperature (celsius)
+# TYPE withings_meas_temperature gauge
+withings_meas_temperature{category="1",hash_deviceid="yourdeviceid"} 27.123
+# HELP withings_meas_body_temperature Body Temperature (celsius)
+# TYPE withings_meas_body_temperature gauge
+withings_meas_body_temperature{category="1",hash_deviceid="yourdeviceid"} 36.765
+# HELP withings_meas_skin_temperature Skin Temperature (celsius)
+# TYPE withings_meas_skin_temperature gauge
+withings_meas_skin_temperature{category="1",hash_deviceid="yourdeviceid"} 35.123
+# HELP withings_meas_diastolic_blood_pressure Diastolic Blood Pressure (mmHg)
+# TYPE withings_meas_diastolic_blood_pressure gauge
+withings_meas_diastolic_blood_pressure{category="1",hash_deviceid="yourdeviceid"} 70.0
+# HELP withings_meas_systolic_blood_pressure Systolic Blood Pressure (mmHg)
+# TYPE withings_meas_systolic_blood_pressure gauge
+withings_meas_systolic_blood_pressure{category="1",hash_deviceid="yourdeviceid"} 100.0
+# HELP withings_meas_heart_pulse Heart Pulse (bpm) - only for BPM and scale devices
+# TYPE withings_meas_heart_pulse gauge
+withings_meas_heart_pulse{category="1",hash_deviceid="yourdeviceid"} 65.0
+# HELP withings_activity_steps_total Number of steps.
+# TYPE withings_activity_steps_total counter
+withings_activity_steps_total{brand="18",hash_deviceid="None",is_tracker="False"} 4000.0
+# HELP withings_activity_steps_created Number of steps.
+# TYPE withings_activity_steps_created gauge
+withings_activity_steps_created{brand="18",hash_deviceid="None",is_tracker="False"} 1.632048299815091e+09
+# HELP withings_activity_distance_total Distance travelled (in meters).
+# TYPE withings_activity_distance_total counter
+withings_activity_distance_total{brand="18",hash_deviceid="None",is_tracker="False"} 3000.923
+# HELP withings_activity_distance_created Distance travelled (in meters).
+# TYPE withings_activity_distance_created gauge
+withings_activity_distance_created{brand="18",hash_deviceid="None",is_tracker="False"} 1.632048299815305e+09
+# HELP withings_activity_elevation_total Number of floors climbed.
+# TYPE withings_activity_elevation_total counter
+withings_activity_elevation_total{brand="18",hash_deviceid="None",is_tracker="False"} 0.0
+# HELP withings_activity_elevation_created Number of floors climbed.
+# TYPE withings_activity_elevation_created gauge
+withings_activity_elevation_created{brand="18",hash_deviceid="None",is_tracker="False"} 1.632048299815446e+09
+# HELP withings_activity_soft_total Duration of soft activities (in seconds).
+# TYPE withings_activity_soft_total counter
+withings_activity_soft_total{brand="18",hash_deviceid="None",is_tracker="False"} 1200.0
+# HELP withings_activity_soft_created Duration of soft activities (in seconds).
+# TYPE withings_activity_soft_created gauge
+withings_activity_soft_created{brand="18",hash_deviceid="None",is_tracker="False"} 1.632048299815567e+09
+# HELP withings_activity_moderate_total Duration of moderate activities (in seconds).
+# TYPE withings_activity_moderate_total counter
+withings_activity_moderate_total{brand="18",hash_deviceid="None",is_tracker="False"} 44.0
+# HELP withings_activity_moderate_created Duration of moderate activities (in seconds).
+# TYPE withings_activity_moderate_created gauge
+withings_activity_moderate_created{brand="18",hash_deviceid="None",is_tracker="False"} 1.632048299815688e+09
+# HELP withings_activity_intense_total Duration of intense activities (in seconds).
+# TYPE withings_activity_intense_total counter
+withings_activity_intense_total{brand="18",hash_deviceid="None",is_tracker="False"} 18.0
+# HELP withings_activity_intense_created Duration of intense activities (in seconds).
+# TYPE withings_activity_intense_created gauge
+withings_activity_intense_created{brand="18",hash_deviceid="None",is_tracker="False"} 1.6320482998158212e+09
+# HELP withings_activity_active_total Sum of intense and moderate activity durations (in seconds).
+# TYPE withings_activity_active_total counter
+withings_activity_active_total{brand="18",hash_deviceid="None",is_tracker="False"} 62.0
+# HELP withings_activity_active_created Sum of intense and moderate activity durations (in seconds).
+# TYPE withings_activity_active_created gauge
+withings_activity_active_created{brand="18",hash_deviceid="None",is_tracker="False"} 1.632048299815934e+09
+# HELP withings_activity_calories_total Active calories burned (in Kcal).
+# TYPE withings_activity_calories_total counter
+withings_activity_calories_total{brand="18",hash_deviceid="None",is_tracker="False"} 29.249
+# HELP withings_activity_calories_created Active calories burned (in Kcal).
+# TYPE withings_activity_calories_created gauge
+withings_activity_calories_created{brand="18",hash_deviceid="None",is_tracker="False"} 1.632048299816088e+09
+# HELP withings_activity_totalcalories_total Total calories burned (in Kcal).
+# TYPE withings_activity_totalcalories_total counter
+withings_activity_totalcalories_total{brand="18",hash_deviceid="None",is_tracker="False"} 1200.62
+# HELP withings_activity_totalcalories_created Total calories burned (in Kcal).
+# TYPE withings_activity_totalcalories_created gauge
+withings_activity_totalcalories_created{brand="18",hash_deviceid="None",is_tracker="False"} 1.6320482998162298e+09
+# HELP withings_activity_hr_average Average heart rate.
+# TYPE withings_activity_hr_average gauge
+withings_activity_hr_average{brand="18",hash_deviceid="None",is_tracker="False"} 87.0
+# HELP withings_activity_hr_min Minimal heart rate.
+# TYPE withings_activity_hr_min gauge
+withings_activity_hr_min{brand="18",hash_deviceid="None",is_tracker="False"} 65.0
+# HELP withings_activity_hr_max Maximal heart rate.
+# TYPE withings_activity_hr_max gauge
+withings_activity_hr_max{brand="18",hash_deviceid="None",is_tracker="False"} 123.0
+# HELP withings_activity_hr_zone_0 Duration in seconds when heart rate was in a light zone
+# TYPE withings_activity_hr_zone_0 gauge
+withings_activity_hr_zone_0{brand="18",hash_deviceid="None",is_tracker="False"} 14200.0
+# HELP withings_activity_hr_zone_1_total Duration in seconds when heart rate was in a moderate zone
+# TYPE withings_activity_hr_zone_1_total counter
+withings_activity_hr_zone_1_total{brand="18",hash_deviceid="None",is_tracker="False"} 5048.0
+# HELP withings_activity_hr_zone_1_created Duration in seconds when heart rate was in a moderate zone
+# TYPE withings_activity_hr_zone_1_created gauge
+withings_activity_hr_zone_1_created{brand="18",hash_deviceid="None",is_tracker="False"} 1.632048299816919e+09
+# HELP withings_activity_hr_zone_2_total Duration in seconds when heart rate was in an intense zone
+# TYPE withings_activity_hr_zone_2_total counter
+withings_activity_hr_zone_2_total{brand="18",hash_deviceid="None",is_tracker="False"} 0.0
+# HELP withings_activity_hr_zone_2_created Duration in seconds when heart rate was in an intense zone
+# TYPE withings_activity_hr_zone_2_created gauge
+withings_activity_hr_zone_2_created{brand="18",hash_deviceid="None",is_tracker="False"} 1.632048299817037e+09
+# HELP withings_activity_hr_zone_3_total Duration in seconds when heart rate was in maximal zone
+# TYPE withings_activity_hr_zone_3_total counter
+withings_activity_hr_zone_3_total{brand="18",hash_deviceid="None",is_tracker="False"} 0.0
+# HELP withings_activity_hr_zone_3_created Duration in seconds when heart rate was in maximal zone
+# TYPE withings_activity_hr_zone_3_created gauge
+withings_activity_hr_zone_3_created{brand="18",hash_deviceid="None",is_tracker="False"} 1.632048299817152e+09
+# HELP withings_sleep_wakeupduration_total Time spent awake (in seconds).
+# TYPE withings_sleep_wakeupduration_total counter
+withings_sleep_wakeupduration_total{hash_deviceid="yourdeviceid",model="32",model_id="63"} 4020.0
+# HELP withings_sleep_wakeupduration_created Time spent awake (in seconds).
+# TYPE withings_sleep_wakeupduration_created gauge
+withings_sleep_wakeupduration_created{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.632048300694314e+09
+# HELP withings_sleep_wakeup_total Number of times the user woke up while in bed. Does not include the number of times the user got out of bed.
+# TYPE withings_sleep_wakeup_total counter
+withings_sleep_wakeup_total{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.0
+# HELP withings_sleep_wakeup_created Number of times the user woke up while in bed. Does not include the number of times the user got out of bed.
+# TYPE withings_sleep_wakeup_created gauge
+withings_sleep_wakeup_created{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.632048300694438e+09
+# HELP withings_sleep_remsleepduration_total Duration in state REM sleep (in seconds).
+# TYPE withings_sleep_remsleepduration_total counter
+withings_sleep_remsleepduration_total{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1740.0
+# HELP withings_sleep_remsleepduration_created Duration in state REM sleep (in seconds).
+# TYPE withings_sleep_remsleepduration_created gauge
+withings_sleep_remsleepduration_created{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.6320483006945531e+09
+# HELP withings_sleep_timeinbed_total Total time spent in bed.
+# TYPE withings_sleep_timeinbed_total counter
+withings_sleep_timeinbed_total{hash_deviceid="yourdeviceid",model="32",model_id="63"} 17520.0
+# HELP withings_sleep_timeinbed_created Total time spent in bed.
+# TYPE withings_sleep_timeinbed_created gauge
+withings_sleep_timeinbed_created{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.632048300694667e+09
+# HELP withings_sleep_sleep_time_total Total time spent asleep. Sum of light, deep and rem durations.
+# TYPE withings_sleep_sleep_time_total counter
+withings_sleep_sleep_time_total{hash_deviceid="yourdeviceid",model="32",model_id="63"} 13500.0
+# HELP withings_sleep_sleep_time_created Total time spent asleep. Sum of light, deep and rem durations.
+# TYPE withings_sleep_sleep_time_created gauge
+withings_sleep_sleep_time_created{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.632048300694823e+09
+# HELP withings_sleep_sleep_efficiency Ratio of the total sleep time over the time spent in bed.
+# TYPE withings_sleep_sleep_efficiency gauge
+withings_sleep_sleep_efficiency{hash_deviceid="yourdeviceid",model="32",model_id="63"} 0.77
+# HELP withings_sleep_sleep_latency_total Time spent in bed before falling asleep.
+# TYPE withings_sleep_sleep_latency_total counter
+withings_sleep_sleep_latency_total{hash_deviceid="yourdeviceid",model="32",model_id="63"} 3480.0
+# HELP withings_sleep_sleep_latency_created Time spent in bed before falling asleep.
+# TYPE withings_sleep_sleep_latency_created gauge
+withings_sleep_sleep_latency_created{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.6320483006950881e+09
+# HELP withings_sleep_wakeup_latency_total Time spent in bed after waking up.
+# TYPE withings_sleep_wakeup_latency_total counter
+withings_sleep_wakeup_latency_total{hash_deviceid="yourdeviceid",model="32",model_id="63"} 0.0
+# HELP withings_sleep_wakeup_latency_created Time spent in bed after waking up.
+# TYPE withings_sleep_wakeup_latency_created gauge
+withings_sleep_wakeup_latency_created{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.6320483006952052e+09
+# HELP withings_sleep_waso Time spent awake in bed after falling asleep for the 1st time during the night.
+# TYPE withings_sleep_waso gauge
+withings_sleep_waso{hash_deviceid="yourdeviceid",model="32",model_id="63"} 540.0
+# HELP withings_sleep_nb_rem_episodes_total Count of the REM sleep phases.
+# TYPE withings_sleep_nb_rem_episodes_total counter
+withings_sleep_nb_rem_episodes_total{hash_deviceid="yourdeviceid",model="32",model_id="63"} 2.0
+# HELP withings_sleep_nb_rem_episodes_created Count of the REM sleep phases.
+# TYPE withings_sleep_nb_rem_episodes_created gauge
+withings_sleep_nb_rem_episodes_created{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.632048300695443e+09
+# HELP withings_sleep_out_of_bed_total Number of times the user got out of bed during the night.
+# TYPE withings_sleep_out_of_bed_total counter
+withings_sleep_out_of_bed_total{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.0
+# HELP withings_sleep_out_of_bed_created Number of times the user got out of bed during the night.
+# TYPE withings_sleep_out_of_bed_created gauge
+withings_sleep_out_of_bed_created{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.632048300695559e+09
+# HELP withings_sleep_lightsleepduration_total Duration in state light sleep (in seconds).
+# TYPE withings_sleep_lightsleepduration_total counter
+withings_sleep_lightsleepduration_total{hash_deviceid="yourdeviceid",model="32",model_id="63"} 9660.0
+# HELP withings_sleep_lightsleepduration_created Duration in state light sleep (in seconds).
+# TYPE withings_sleep_lightsleepduration_created gauge
+withings_sleep_lightsleepduration_created{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.632048300695797e+09
+# HELP withings_sleep_hr_average Average heart rate.
+# TYPE withings_sleep_hr_average gauge
+withings_sleep_hr_average{hash_deviceid="yourdeviceid",model="32",model_id="63"} 57.0
+# HELP withings_sleep_hr_min Minimal heart rate.
+# TYPE withings_sleep_hr_min gauge
+withings_sleep_hr_min{hash_deviceid="yourdeviceid",model="32",model_id="63"} 48.0
+# HELP withings_sleep_hr_max Maximal heart rate.
+# TYPE withings_sleep_hr_max gauge
+withings_sleep_hr_max{hash_deviceid="yourdeviceid",model="32",model_id="63"} 72.0
+# HELP withings_sleep_rr_average Average respiration rate.
+# TYPE withings_sleep_rr_average gauge
+withings_sleep_rr_average{hash_deviceid="yourdeviceid",model="32",model_id="63"} 17.0
+# HELP withings_sleep_rr_min Minimal respiration rate.
+# TYPE withings_sleep_rr_min gauge
+withings_sleep_rr_min{hash_deviceid="yourdeviceid",model="32",model_id="63"} 13.0
+# HELP withings_sleep_rr_max Maximal respiration rate.
+# TYPE withings_sleep_rr_max gauge
+withings_sleep_rr_max{hash_deviceid="yourdeviceid",model="32",model_id="63"} 25.0
+# HELP withings_sleep_breathing_disturbances_intensity Intensity of breathing disturbances
+# TYPE withings_sleep_breathing_disturbances_intensity gauge
+withings_sleep_breathing_disturbances_intensity{hash_deviceid="yourdeviceid",model="32",model_id="63"} -1.0
+# HELP withings_sleep_snoring_total Total snoring time
+# TYPE withings_sleep_snoring_total counter
+withings_sleep_snoring_total{hash_deviceid="yourdeviceid",model="32",model_id="63"} 0.0
+# HELP withings_sleep_snoring_created Total snoring time
+# TYPE withings_sleep_snoring_created gauge
+withings_sleep_snoring_created{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.632048300696982e+09
+# HELP withings_sleep_snoringepisode_total Numbers of snoring episodes of at least one minute
+# TYPE withings_sleep_snoringepisode_total counter
+withings_sleep_snoringepisode_total{hash_deviceid="yourdeviceid",model="32",model_id="63"} 0.0
+# HELP withings_sleep_snoringepisode_created Numbers of snoring episodes of at least one minute
+# TYPE withings_sleep_snoringepisode_created gauge
+withings_sleep_snoringepisode_created{hash_deviceid="yourdeviceid",model="32",model_id="63"} 1.6320483006971169e+09
+# HELP withings_sleep_sleep_score Sleep score
+# TYPE withings_sleep_sleep_score gauge
+withings_sleep_sleep_score{hash_deviceid="yourdeviceid",model="32",model_id="63"} 20.0

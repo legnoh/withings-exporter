@@ -1,0 +1,50 @@
+name: Upload Withings prom data
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: nanasess/setup-chromedriver@v1.0.5
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install Japanese Fonts
+      run: |
+        sudo apt install -y fonts-ipafont
+        fc-cache -fv
+        fc-list | grep -i ipa
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipenv
+        pipenv install
+    - name: Start XVFB
+      run: Xvfb :99 &
+    - name: Run Gathering Withings Data
+      run: pipenv run main
+      env:
+        DISPLAY: :99
+        WITHINGS_EMAIL: ${{ secrets.WITHINGS_EMAIL }}
+        WITHINGS_PASSWORD: ${{ secrets.WITHINGS_PASSWORD }}
+        WITHINGS_CLIENT_ID: ${{ secrets.WITHINGS_CLIENT_ID }}
+        WITHINGS_CONSUMER_SECRET: ${{ secrets.WITHINGS_CONSUMER_SECRET }}
+        WITHINGS_CALLBACK_URI: ${{ secrets.WITHINGS_CALLBACK_URI }}
+        TZ: ${{ secrets.TZ }}
+    - name: setup GCP access
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+    - name: Upload JSON to GCS
+      uses: google-github-actions/upload-cloud-storage@main
+      with:
+        path: ./container/public/withings.prom
+        destination: ${{ secrets.BUCKET_NAME }}/
