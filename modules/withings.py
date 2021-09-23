@@ -3,13 +3,15 @@ from selenium import webdriver
 import chromedriver_binary
 import datetime
 import requests
+import time
+import logging
 from prometheus_client import Gauge, Counter, Info
 
 def get_code(email, password, authorize_url):
 
     driver = webdriver.Chrome()
 
-    print("access to login page & get credentials...")
+    logging.info("access to login page & get credentials...")
     driver.get(authorize_url);
     driver.implicitly_wait(10);
 
@@ -23,8 +25,14 @@ def get_code(email, password, authorize_url):
     password_box.send_keys(password)
     password_box.submit()
 
+    if driver.current_url.find("'https://account.withings.com/oauth2_user/account_login"):
+        if driver.find_element_by_css_selector('div.alert > li'):
+            get_error_message = driver.find_element_by_css_selector('div.alert > li').text
+            logging.error("UI alerts: " + get_error_message)
+            return None
+
     app_allow_button = driver.find_element_by_class_name('primary')
-    app_allow_button.click()
+    app_allow_button.click()    
 
     code_url = driver.current_url
     params = dict(parse.parse_qsl(parse.urlsplit(code_url).query))
@@ -148,5 +156,5 @@ def request(access_token, path, data):
             return response_json
         return None
     except requests.exceptions.RequestException:
-        print('HTTP Request failed')
+        logging.error('HTTP Request failed')
         return None

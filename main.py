@@ -3,6 +3,8 @@ import yaml
 from withings_api import WithingsAuth, WithingsApi, AuthScope
 from prometheus_client import CollectorRegistry, write_to_textfile
 import modules.withings as wi
+import logging
+import sys
 
 email = os.environ['WITHINGS_EMAIL']
 password = os.environ['WITHINGS_PASSWORD']
@@ -20,8 +22,12 @@ auth = WithingsAuth(
 )
 authorize_url = auth.get_authorize_url()
 
-print("get access token....")
+logging.info("get access token....")
 code = wi.get_code(email, password, authorize_url)
+if code == None:
+    logging.error("failed to get code")
+    sys.exit(1)
+
 credentials = auth.get_credentials(code)
 api = WithingsApi(credentials)
 
@@ -31,7 +37,7 @@ with open('config/metrics.yml', 'r') as stream:
     config = yaml.load(stream, Loader=yaml.FullLoader)
 
 # get measurements
-print("gathering measurement data...")
+logging.info("gathering measurement data...")
 measuregrps = wi.get_latest_meas_datas(credentials.access_token)
 meas_metrics = {}
 for measuregrp in measuregrps:
@@ -45,7 +51,7 @@ for measuregrp in measuregrps:
         wi.set_metrics(meas_metrics[measure['type']], labels, measure['value'] * (10 ** measure['unit']))
 
 # get activities
-print("gathering activity data...")
+logging.info("gathering activity data...")
 activities = wi.get_latest_activity_datas(credentials.access_token, config['activity'])
 activity_metrics = {}
 for activity in activities:
@@ -63,7 +69,7 @@ for activity in activities:
         wi.set_metrics(activity_metrics[k], labels, v)
 
 # get sleep series
-print("gathering sleep data...")
+logging.info("gathering sleep data...")
 sleepseries = wi.get_latest_sleep_datas(credentials.access_token, config['sleep'])
 sleep_metrics = {}
 for sleep_data in sleepseries:
@@ -79,4 +85,4 @@ for sleep_data in sleepseries:
 
 
 write_to_textfile('./container/public/withings.prom', registry)
-print("gathering health data successfull!")
+logging.info("gathering health data successfull!")
