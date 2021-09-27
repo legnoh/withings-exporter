@@ -27,7 +27,7 @@ def get_code(email, password, authorize_url):
     time.sleep(5)
     password_box.submit()
 
-    if driver.current_url.find("'https://account.withings.com/oauth2_user/account_login"):
+    if driver.current_url.find("https://account.withings.com/oauth2_user/account_login") != -1 :
         if driver.find_element_by_css_selector('div.alert > li'):
             get_error_message = driver.find_element_by_css_selector('div.alert > li').text
             logging.error("UI alerts: " + get_error_message)
