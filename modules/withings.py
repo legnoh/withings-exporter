@@ -20,9 +20,11 @@ def get_code(email, password, authorize_url):
 
     email_box = driver.find_element_by_name('email')
     email_box.send_keys(email)
+    time.sleep(5)
 
     password_box = driver.find_element_by_name('password')
     password_box.send_keys(password)
+    time.sleep(5)
     password_box.submit()
 
     if driver.current_url.find("'https://account.withings.com/oauth2_user/account_login"):
