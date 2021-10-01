@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "24f6bfc94c0c9033a0a564e4963b0a37dc7da85dd96e8f9643248e99e1ba8ddf"
+            "sha256": "757be04129c6d8570da717c7cefda8ac639482a46ccc4fb7322d03a143df512b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -41,10 +41,10 @@
         },
         "chromedriver-binary": {
             "hashes": [
-                "sha256:6d9683f1b9b1dbf3b8a06cb0f2e5ec782d1fd624d687d2e90b0fcd7055d0eae7"
+                "sha256:a3e70a6d02616874319beafaa720866bfca86651f54b40ad4513bdddecdba02e"
             ],
             "index": "pypi",
-            "version": "==93.0.4577.63.0"
+            "version": "==94.0.4606.61.0"
         },
         "idna": {
             "hashes": [
@@ -192,7 +192,7 @@
                 "sha256:4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece",
                 "sha256:c4fdf4019605b6e5423637e01bc9fe4daef873709a7973e195ceba0a62bbc844"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4' and python_version < '4.0'",
             "version": "==1.26.7"
         },
         "withings-api": {
