@@ -1,7 +1,6 @@
 name: Upload Withings prom data
 
 on:
-  push:
   workflow_dispatch:
   schedule:
     - cron: '0 */2 * * *'
