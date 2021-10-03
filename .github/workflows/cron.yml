@@ -48,3 +48,10 @@ jobs:
       with:
         path: ./container/public/withings.prom
         destination: ${{ secrets.BUCKET_NAME }}/
+    - name: Update Prometheus Data in RaspberryPi
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        repo: legnoh/life-metrics-grafana-deployment
+        ref: refs/heads/main
+        workflow: Get Latest Metrics Data from GCS
+        token: ${{ secrets.PERSONAL_TOKEN }}
