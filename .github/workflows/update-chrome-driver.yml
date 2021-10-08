@@ -21,13 +21,17 @@ jobs:
       - name: Check Browser and Library Version
         run: |
           browser_version=$(google-chrome --version | sed -e 's/Google Chrome //g' | sed -e 's/ //g')
-          browser_major_version=${${browser_version%.*}%.*}
+          browser_versions=(${browser_version//\./ })
+          browser_major_version=${browser_version[0]}
           library_version=$(cat Pipfile | grep "chromedriver-binary" | sed -e 's/chromedriver-binary = "==//g' | sed -e 's/.0"//g')
-          library_major_version=${${library_version%.*}%.*}
+          library_versions=(${library_version//\./ })
+          library_major_version=${library_version[0]}
+
           echo "browser_version=${browser_version}" >> $GITHUB_ENV
           echo "browser_major_version=${browser_major_version}" >> $GITHUB_ENV
           echo "library_version=${library_version}" >> $GITHUB_ENV
           echo "library_major_version=${library_major_version}" >> $GITHUB_ENV
+          
           echo "browser_version: ${browser_version}"
           echo "browser_major_version: ${browser_major_version}"
           echo "library_version: ${library_version}"
