@@ -2,8 +2,8 @@ name: Update chrome-driver Version
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 22 * * *'
+  # schedule:
+  #   - cron: '0 22 * * *'
 
 jobs:
   check-version:
@@ -31,7 +31,7 @@ jobs:
           echo "browser_major_version=${browser_major_version}" >> $GITHUB_ENV
           echo "library_version=${library_version}" >> $GITHUB_ENV
           echo "library_major_version=${library_major_version}" >> $GITHUB_ENV
-          
+
           echo "browser_version: ${browser_version}"
           echo "browser_major_version: ${browser_major_version}"
           echo "library_version: ${library_version}"
