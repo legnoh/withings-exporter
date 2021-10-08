@@ -3,7 +3,7 @@ name: Update chrome-driver Version
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 22 * * *'
 
 jobs:
   check-version:
@@ -21,11 +21,17 @@ jobs:
       - name: Check Browser and Library Version
         run: |
           browser_version=$(google-chrome --version | sed -e 's/Google Chrome //g' | sed -e 's/ //g')
+          browser_versions=${browser_version//./ }
+          browser_major_version=${browser_versions[0]}
           library_version=$(cat Pipfile | grep "chromedriver-binary" | sed -e 's/chromedriver-binary = "==//g' | sed -e 's/.0"//g')
+          library_versions=${library_version//./ }
+          library_major_version=${library_versions[0]}
           echo "browser_version=${browser_version}" >> $GITHUB_ENV
           echo "library_version=${library_version}" >> $GITHUB_ENV
+          echo "browser_major_version=${browser_major_version}" >> $GITHUB_ENV
+          echo "library_major_version=${library_major_version}" >> $GITHUB_ENV
       - name: Replace
-        if: env.browser_version != env.library_version
+        if: env.browser_major_version != env.library_major_version
         run: |
           sed -i "s/${library_version}/${browser_version}/g" Pipfile
           pipenv update
