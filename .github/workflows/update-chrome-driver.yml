@@ -30,6 +30,10 @@ jobs:
           echo "library_version=${library_version}" >> $GITHUB_ENV
           echo "browser_major_version=${browser_major_version}" >> $GITHUB_ENV
           echo "library_major_version=${library_major_version}" >> $GITHUB_ENV
+          echo "browser_version: ${browser_version}"
+          echo "browser_major_version: ${browser_major_version}"
+          echo "library_version: ${library_version}"
+          echo "library_major_version: ${library_major_version}"
       - name: Replace
         if: env.browser_major_version != env.library_major_version
         run: |
