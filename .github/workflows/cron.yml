@@ -1,6 +1,9 @@
 name: Upload Withings prom data
 
 on:
+  push:
+    branches:
+      - "main"
   workflow_dispatch:
   schedule:
     - cron: '0 */2 * * *'
@@ -13,7 +16,7 @@ jobs:
     - uses: nanasess/setup-chromedriver@v1.0.5
     - uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: '3.9'
     - name: Install Japanese Fonts
       run: |
         sudo apt install -y fonts-ipafont
