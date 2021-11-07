@@ -37,12 +37,12 @@ jobs:
       - name: Replace
         if: env.browser_major_version != env.library_major_version
         run: |
-          sed -i "s/${library_version}/${browser_version}/g" Pipfile
+          sed -i "s/${library_major_version}.\*/${browser_major_version}.\*/g" Pipfile
           pipenv update
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         if: env.browser_version != env.library_version
         with:
           delete-branch: true
-          title: Update chromium-driver to ${{ env.browser_version }}
-          commit-message: Update chromium-driver to ${{ env.browser_version }}
+          title: Update chromium-driver to ${{ env.browser_major_version }}
+          commit-message: Update chromium-driver to ${{ env.browser_major_version }}
