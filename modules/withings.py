@@ -49,7 +49,7 @@ def get_latest_meas_datas(access_token):
 
     res = request(access_token, "/measure", data={
                 "action": "getmeas",
-                "lastupdate": oneweekago.timestamp()
+                "lastupdate": int(oneweekago.timestamp())
     })
 
     if res['body']['measuregrps']:
