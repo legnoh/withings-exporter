@@ -6,14 +6,14 @@ name = "pypi"
 [packages]
 pyyaml = "*"
 selenium = "*"
-chromedriver-binary = "==97.*"
+chromedriver-binary = "==98.*"
 withings-api = "*"
 prometheus-client = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3"
 
 [scripts]
 main = "python3 main.py"
