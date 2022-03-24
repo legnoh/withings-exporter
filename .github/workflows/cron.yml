@@ -39,12 +39,12 @@ jobs:
         WITHINGS_CONSUMER_SECRET: ${{ secrets.WITHINGS_CONSUMER_SECRET }}
         WITHINGS_CALLBACK_URI: ${{ secrets.WITHINGS_CALLBACK_URI }}
         TZ: ${{ secrets.TZ }}
-    - name: setup GCP access
-      uses: google-github-actions/setup-gcloud@master
+    - name: setup GCP Auth
+      uses: google-github-actions/auth@v0
       with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+    - name: setup GCP project information
+      uses: google-github-actions/setup-gcloud@v0
     - name: Upload JSON to GCS
       uses: google-github-actions/upload-cloud-storage@main
       with:
