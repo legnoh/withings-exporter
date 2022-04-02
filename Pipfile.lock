@@ -1,11 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b422ad0ade76b90818c87d87b8422a3d3fb55f75d8e0620bf4e1605439490ab4"
+            "sha256": "c724fbe877a219d9aa909c6c9343b3688dec82226f7e51b4e46b462a2cc50906"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.9"
+            "python_version": "3"
         },
         "sources": [
             {
@@ -112,10 +112,10 @@
         },
         "chromedriver-binary": {
             "hashes": [
-                "sha256:c8dcbb528e05fb477c0e6f9138af6aeb29bcc92dff38808f82e3ce3945c6b020"
+                "sha256:f383b0c831c5cf86ab27b1ba7ff96f25e1d04f2df1b880affd1a4ec98da7cbc6"
             ],
             "index": "pypi",
-            "version": "==100.0.4896.60.0"
+            "version": "==98.0.4758.102.0"
         },
         "cryptography": {
             "hashes": [
@@ -349,7 +349,7 @@
                 "sha256:670a52d3115d0e879e1ac838a4eb999af32f858163e3a704fe4839de2a676070",
                 "sha256:fb2d48e4eab0dfb786a472cd514aaadc71e3445b203bc300bad93daa75d77c1a"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_full_version >= '3.7.0'",
             "version": "==0.20.0"
         },
         "trio-websocket": {
@@ -393,7 +393,7 @@
                 "sha256:2218cb57952d90b9fca325c0dcfb08c3bda93e8fd8070b0a17f048e2e47a521b",
                 "sha256:a2e56bfd5c7cd83c1369d83b5feccd6d37798b74872866e62616e0ecf111bda8"
             ],
-            "markers": "python_version >= '3.7'",
+            "markers": "python_full_version >= '3.7.0'",
             "version": "==1.1.0"
         }
     },
