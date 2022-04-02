@@ -10,3 +10,5 @@ updates:
     schedule:
       interval: daily
       time: "04:00" # 13:00(UTC+9)
+    ignore:
+      - dependency-name: "chromedriver-binary"
