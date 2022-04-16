@@ -8,7 +8,7 @@ Prometheus exporter for [Withings Health Mate](https://www.withings.com/health-m
 At first, create withings app for yours.
 
 - [Register with Withings Public API | Withings](https://developer.withings.com/developer-guide/getting-started/register-to-withings-api)
-  - I recommends `http://localhost/` to Callback URI.
+  - I recommends `http://localhost:8000/` to Callback URI.
   - Please note `CLIENT ID` and `CONSUMER SECRET`.
 
 This exporter script works for creating metrics file only.
@@ -17,13 +17,20 @@ This exporter script works for creating metrics file only.
 # clone
 git clone https://github.com/legnoh/withings_exporter.git && cd withings_exporter
 pipenv install
-pipenv shell
 
 # prepare env file for your apps
 cp example.env .env
+
+# input TZ, WITHINGS_CLIENT_ID, WITHINGS_CONSUMER_SECRET
 vi .env
 
-# execute
+# exec get_token.py(in your browser)
+pipenv run get-token
+
+# paste your env to .env 3rd block
+vi .env
+
+# run exporter
 pipenv run main
 ```
 
@@ -32,7 +39,7 @@ Therefore, you should be hosted in other container to export metrics.
 ```sh
 cd container
 docker-compose up -d
-curl -vvv http://localhost:9101/withings.prom
+curl -vvv http://localhost:9101/
 ```
 
 ## Metrics

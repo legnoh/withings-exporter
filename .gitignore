@@ -173,3 +173,6 @@ cython_debug/
 
 # prom data
 container/public/withings.prom
+
+config/*
+!config/metrics.yml

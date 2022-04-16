@@ -1,117 +1,110 @@
-from urllib import parse
-from selenium import webdriver
-import chromedriver_binary
-import datetime
-import requests
-import time
-import logging
+import datetime, logging, os, sys
 from prometheus_client import Gauge, Counter, Info
+from withings_api import WithingsApi, Credentials2
+from withings_api.common import AuthFailedException,GetActivityField,GetSleepSummaryField
 
-def get_code(email, password, authorize_url):
+def get_configs(logic):
+    keys = ['access_token', 'token_type', 'refresh_token', 'userid', 'client_id', 'consumer_secret', 'expires_in']
+    credentials = {}
 
-    driver = webdriver.Chrome()
+    if logic != 'file' and logic != 'env':
+        return None
 
-    logging.info("access to login page & get credentials...")
-    driver.get(authorize_url);
-    driver.implicitly_wait(10);
+    for key in keys:
+        env_key = "WITHINGS_{key}".format(key=key.upper())
+        if logic == 'env':
+            if os.getenv(env_key) != None:
+                credentials[key] = os.getenv(env_key)
+                continue
+            else:
+                return None
+        else:
+            try:
+                with open('./config/{key}'.format(key=key), "r") as f:
+                    credentials[key] = f.read()
+            except IOError:
+                return None
 
-    cookie_allow_button = driver.find_element_by_class_name('primary')
-    cookie_allow_button. click()
+    return WithingsApi(Credentials2(
+        access_token=credentials['access_token'],
+        token_type=credentials['token_type'],
+        refresh_token=credentials['refresh_token'],
+        userid=credentials['userid'],
+        client_id=credentials['client_id'],
+        consumer_secret=credentials['consumer_secret'],
+        expires_in=credentials['expires_in']
+    ))
 
-    email_box = driver.find_element_by_name('email')
-    email_box.send_keys(email)
-    time.sleep(5)
-
-    password_box = driver.find_element_by_name('password')
-    password_box.send_keys(password)
-    time.sleep(5)
-    password_box.submit()
-
-    if driver.current_url.find("https://account.withings.com/oauth2_user/account_login") != -1 :
-        if driver.find_element_by_css_selector('div.alert > li'):
-            get_error_message = driver.find_element_by_css_selector('div.alert > li').text
-            logging.error("UI alerts: " + get_error_message)
+def cache_config(api: WithingsApi):
+    keys = ['access_token', 'token_type', 'refresh_token', 'userid', 'client_id', 'consumer_secret', 'expires_in']
+    
+    for key in keys:
+        try:
+            with open('./config/{key}'.format(key=key), "w") as f:
+                f.write(str(getattr(api._credentials,key)))
+        except IOError:
             return None
 
-    app_allow_button = driver.find_element_by_class_name('primary')
-    app_allow_button.click()    
+def refresh_config(api: WithingsApi):
+    try:
+        api.refresh_token()
+        cache_config(api)
+        return api
+    except AuthFailedException:
+        return None
 
-    code_url = driver.current_url
-    params = dict(parse.parse_qsl(parse.urlsplit(code_url).query))
 
-    driver.quit()
-    return params['code']
+def check_auth(api: WithingsApi):
+    try:
+        api.user_get_device()
+    except AuthFailedException:
+        return False
+    return True
 
-
-def get_latest_meas_datas(access_token):
+def get_latest_meas_datas(api: WithingsApi):
 
     oneweekago = datetime.datetime.now() - datetime.timedelta(days=7)
+    meas_result = api.measure_get_meas(
+        startdate=None,
+        enddate=None,
+        lastupdate=oneweekago
+    )
+    return meas_result
 
-    res = request(access_token, "/measure", data={
-                "action": "getmeas",
-                "lastupdate": int(oneweekago.timestamp())
-    })
-
-    if res['body']['measuregrps']:
-            return res['body']['measuregrps']
-    return None
-
-def get_latest_activity_datas(access_token, config):
+def get_latest_activity_datas(api: WithingsApi):
 
     target_date = datetime.datetime.now()
-    format_date = target_date.strftime('%Y-%m-%d')
-
-    activity_data_fields = ""
-    for activity_metric in config['metrics']:
-        if activity_data_fields != "":
-            activity_data_fields += "," + activity_metric
-        else:
-            activity_data_fields += activity_metric
     
     i = 0
     res = None
     while res == None or i < 7:
-        res = request(access_token, config['request']['path'], data={
-                    "action": config['request']['action'],
-                    "startdateymd": format_date,
-                    "enddateymd": format_date,
-                    "data_fields": activity_data_fields,
-        })
-        if res['body']['activities']:
-            return res['body']['activities']
+        res = api.measure_get_activity(
+            lastupdate=target_date,
+            data_fields=GetActivityField,
+        )
+        if res.activities:
+            return res.activities
         else:
             target_date = target_date - datetime.timedelta(days=1)
-            format_date = target_date.strftime('%Y-%m-%d')
             res = None
             i += 1
     return None
 
-def get_latest_sleep_datas(access_token, config):
+def get_latest_sleep_datas(api: WithingsApi):
 
     target_date = datetime.datetime.now()
-    format_date = target_date.strftime('%Y-%m-%d')
-
-    sleep_data_fields = ""
-    for sleep_metric in config['metrics']:
-        if sleep_data_fields != "":
-            sleep_data_fields += "," + sleep_metric
-        else:
-            sleep_data_fields += sleep_metric
     
     i = 0
     res = None
     while res == None or i < 7:
-        res = request(access_token, config['request']['path'], data={
-                    "action": config['request']['action'],
-                    "startdateymd": format_date,
-                    "enddateymd": format_date,
-                    "data_fields": sleep_data_fields,
-        })
-        if res['body']['series']:
-            return res['body']['series']
+        res = api.sleep_get_summary(
+            lastupdate=target_date,
+            data_fields=GetSleepSummaryField
+        )
+        if res.series:
+            return res.series
         else:
             target_date = target_date - datetime.timedelta(days=1)
-            format_date = target_date.strftime('%Y-%m-%d')
             res = None
             i += 1
     return None
@@ -141,22 +134,3 @@ def set_metrics(m, labels, value):
         m.labels(*labels).inc(value)
     else:
         pass
-
-def request(access_token, path, data):
-
-    try:
-        response = requests.post(
-            url="https://wbsapi.withings.net" + path,
-            headers={
-                "Authorization": "Bearer " + access_token,
-                "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-            },
-            data=data,
-        )
-        response_json = response.json()
-        if response_json['body']:
-            return response_json
-        return None
-    except requests.exceptions.RequestException:
-        logging.error('HTTP Request failed')
-        return None

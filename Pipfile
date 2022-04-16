@@ -5,8 +5,6 @@ name = "pypi"
 
 [packages]
 pyyaml = "*"
-selenium = "*"
-chromedriver-binary = "==100.*"
 withings-api = "*"
 prometheus-client = "*"
 
@@ -16,4 +14,5 @@ prometheus-client = "*"
 python_version = "3"
 
 [scripts]
+get-token = "python3 get_token.py"
 main = "python3 main.py"
