@@ -4,7 +4,7 @@ services:
     image: nginx:stable
     container_name: withings-exporter
     volumes:
-      - ./public:/usr/share/nginx/html:ro
+      - ./config:/config:rw
     ports:
       - 9101:80
     restart: always
