@@ -1,6 +1,8 @@
 withings-exporter
 ====
 
+[![Badge](https://img.shields.io/badge/docker-legnoh/withings--exporter-blue?logo=docker&link=https://hub.docker.com/r/legnoh/withings-exporter)](https://hub.docker.com/r/legnoh/withings-exporter) [![ci](https://github.com/legnoh/withings-exporter/actions/workflows/ci.yml/badge.svg)](https://github.com/legnoh/withings-exporter/actions/workflows/ci.yml)
+
 Prometheus exporter for [Withings Health Mate](https://www.withings.com/health-mate) (For Public Cloud).
 
 ## Usage(direct)
