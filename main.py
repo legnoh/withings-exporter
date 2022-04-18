@@ -23,6 +23,7 @@ if __name__ == "__main__":
                 break
         else:
             logger.info("credential({method}) is active.".format(method=method))
+            break
 
     if api == None:
         logger.fatal("Failed to init credential. Please reauthenticate your oAuth2 code!")
