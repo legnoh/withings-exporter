@@ -1,10 +1,12 @@
-import os,urllib,webbrowser
+import logging,os,sys,urllib,webbrowser
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from withings_api import WithingsAuth, AuthScope
 
 hostName = "localhost"
 serverPort = 8000
-import webbrowser
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s : %(message)s', datefmt="%Y-%m-%dT%H:%M:%S%z")
 
 auth = WithingsAuth(
     client_id=os.environ['WITHINGS_CLIENT_ID'],
@@ -31,27 +33,25 @@ class MyServer(BaseHTTPRequestHandler):
             self.wfile.write(bytes("<html><head><title>OK</title></head>", "utf-8"))
             self.wfile.write(bytes("<body>", "utf-8"))
             self.wfile.write(bytes("<p>Please paste it to your .env file.</p>", "utf-8"))
-            self.wfile.write(bytes("<p>WITHINGS_ACCESS_TOKEN=\"%s\"<br>" % credentials.access_token, "utf-8"))
-            self.wfile.write(bytes("WITHINGS_TOKEN_TYPE=\"%s\"<br>" % credentials.token_type, "utf-8"))
-            self.wfile.write(bytes("WITHINGS_REFRESH_TOKEN=\"%s\"<br>" % credentials.refresh_token, "utf-8"))
-            self.wfile.write(bytes("WITHINGS_USERID=\"%s\"<br>" % credentials.userid, "utf-8"))
-            self.wfile.write(bytes("WITHINGS_CLIENT_ID=\"%s\"<br>" % credentials.client_id, "utf-8"))
-            self.wfile.write(bytes("WITHINGS_CONSUMER_SECRET=\"%s\"<br>" % credentials.consumer_secret, "utf-8"))
-            self.wfile.write(bytes("WITHINGS_EXPIRES_IN=\"%s\"<br>" % credentials.expires_in, "utf-8"))
-            self.wfile.write(bytes("WITHINGS_CREATED=\"%s\"" % credentials.created, "utf-8"))
+            self.wfile.write(bytes("<p>WITHINGS_ACCESS_TOKEN=%s<br>" % credentials.access_token, "utf-8"))
+            self.wfile.write(bytes("WITHINGS_TOKEN_TYPE=%s<br>" % credentials.token_type, "utf-8"))
+            self.wfile.write(bytes("WITHINGS_REFRESH_TOKEN=%s<br>" % credentials.refresh_token, "utf-8"))
+            self.wfile.write(bytes("WITHINGS_USERID=%s<br>" % credentials.userid, "utf-8"))
+            self.wfile.write(bytes("WITHINGS_EXPIRES_IN=%s<br>" % credentials.expires_in, "utf-8"))
+            self.wfile.write(bytes("WITHINGS_CREATED=%s</p>" % credentials.created, "utf-8"))
             self.wfile.write(bytes("</body></html>", "utf-8"))
-            print("Press Ctrl+C to quit....")
+            sys.exit(0)
 
 if __name__ == "__main__":
     authorize_url = auth.get_authorize_url()
-    print("------\nURL: {url}\n------".format(url=authorize_url))
+    logger.info("------\nURL: {url}\n------".format(url=authorize_url))
     webbrowser.open(authorize_url)
 
     webServer = HTTPServer((hostName, serverPort), MyServer)
-    try:    
+    try:
         webServer.serve_forever()
-    except KeyboardInterrupt:
+    except SystemExit:
         pass
 
     webServer.server_close()
-    print("Server stopped.")
+    logger.info("Create Token Successfully!")
