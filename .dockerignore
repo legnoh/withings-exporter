@@ -1,0 +1,9 @@
+.github
+.vscode
+config/tmp/*
+container
+modules/__pycache__
+.env
+.gitignore
+example.env
+*.log
