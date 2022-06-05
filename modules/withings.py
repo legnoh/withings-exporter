@@ -159,7 +159,9 @@ def create_metric_instance(metric, registry, prefix):
     return m
 
 def set_metrics(m, labels, value):
-    if m._type == 'gauge':
+    if value == None:
+        pass
+    elif m._type == 'gauge':
         m.labels(*labels).set(value)
     elif m._type == 'info':
         infos = {}
