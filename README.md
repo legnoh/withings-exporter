@@ -7,6 +7,8 @@ Prometheus exporter for [Withings Health Mate](https://www.withings.com/health-m
 
 ## Usage
 
+### Registration
+
 At first, create withings app for yours.
 
 - [Register with Withings Public API | Withings](https://developer.withings.com/developer-guide/v3/integration-guide/public-health-data-api/developer-account/create-your-accesses-no-medical-cloud#create-your-application)
@@ -37,7 +39,7 @@ docker run -p 9101:9101 \
     legnoh/withings-exporter
 ```
 
-## Start(source)
+### Start(source)
 
 Alternatively, it can be started from the source.
 
