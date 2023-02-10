@@ -108,6 +108,36 @@ meas:
       type: gauge
       unit: ml/min/kg
       labels: *meas_labels
+    135:
+      name: qrs_interval_duration
+      desc: QRS interval duration based on ECG signal
+      type: gauge
+      unit: num
+      labels: *meas_labels
+    136:
+      name: pr_interval_duration
+      desc: PR interval duration based on ECG signal
+      type: gauge
+      unit: num
+      labels: *meas_labels
+    137:
+      name: qt_interval_duration
+      desc: QT interval duration based on ECG signal
+      type: gauge
+      unit: num
+      labels: *meas_labels
+    138:
+      name: corrected_qt_interval_duration
+      desc: Corrected QT interval duration based on ECG signal
+      type: gauge
+      unit: num
+      labels: *meas_labels
+    139:
+      name: atrial_fibrillation_result
+      desc: Atrial fibrillation result from PPG
+      type: gauge
+      unit: num
+      labels: *meas_labels
 activity:
   request:
     path: /v2/measure
