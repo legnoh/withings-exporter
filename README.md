@@ -5,13 +5,41 @@ withings-exporter
 
 Prometheus exporter for [Withings Health Mate](https://www.withings.com/health-mate) (For Public Cloud).
 
-## Usage(direct)
+## Usage
 
 At first, create withings app for yours.
 
-- [Register with Withings Public API | Withings](https://developer.withings.com/developer-guide/getting-started/register-to-withings-api)
+- [Register with Withings Public API | Withings](https://developer.withings.com/developer-guide/v3/integration-guide/public-health-data-api/developer-account/create-your-accesses-no-medical-cloud#create-your-application)
   - I recommend `http://localhost:8000/` to Callback URI.
   - Please note `CLIENT ID` and `CONSUMER SECRET`.
+
+### Start(Docker)
+
+The simplest way to use it is with Docker.
+
+```
+# set env
+export WITHINGS_CLIENT_ID="YOURCRIENTID"
+export WITHINGS_CONSUMER_SECRET="YOURCLIENTSECRET"
+
+# run get_token.py
+docker run -p 8000:8000 \
+    --env WITHINGS_CLIENT_ID \
+    --env WITHINGS_CONSUMER_SECRET \
+    legnoh/withings-exporter python3 get_token.py
+
+# paste your generated data to .env (and edit TZ)
+vi .env
+
+# run exporter(with above .env file)
+docker run -p 9101:9101 \
+    --env-file='.env' \
+    legnoh/withings-exporter
+```
+
+## Start(source)
+
+Alternatively, it can be started from the source.
 
 ```sh
 # clone
@@ -21,24 +49,17 @@ pipenv install
 # prepare env file for your apps
 cp example/example.env .env
 
-# input TZ, WITHINGS_CLIENT_ID, WITHINGS_CONSUMER_SECRET
+# input WITHINGS_CLIENT_ID, WITHINGS_CONSUMER_SECRET
 vi .env
 
 # exec get_token.py(in your browser)
 pipenv run get-token
 
-# paste your env to .env 3rd block
+# paste your env to .env 3rd block (and edit TZ)
 vi .env
 
 # run exporter
 pipenv run main
-```
-
-## Usage(Docker)
-
-```
-# run exporter(with above .env file)
-docker run -p 9101:9101 --env-file='.env' legnoh/withings-exporter
 ```
 
 ## Metrics

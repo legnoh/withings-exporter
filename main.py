@@ -30,7 +30,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     registry = CollectorRegistry()
-    start_http_server(int(os.environ['PORT']), registry=registry)
+    start_http_server(int(os.environ.get('PORT', 9101)), registry=registry)
 
     with open('config/metrics.yml', 'r') as stream:
         config = yaml.load(stream, Loader=yaml.FullLoader)

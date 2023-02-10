@@ -1,4 +1,4 @@
-import logging,os,sys,urllib,webbrowser
+import logging,os,sys,urllib
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from withings_api import WithingsAuth, AuthScope
 
@@ -6,7 +6,7 @@ hostName = "localhost"
 serverPort = 8000
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s : %(message)s', datefmt="%Y-%m-%dT%H:%M:%S%z")
+logging.basicConfig(level=logging.INFO)
 
 auth = WithingsAuth(
     client_id=os.environ['WITHINGS_CLIENT_ID'],
@@ -33,25 +33,25 @@ class MyServer(BaseHTTPRequestHandler):
             self.wfile.write(bytes("<html><head><title>OK</title></head>", "utf-8"))
             self.wfile.write(bytes("<body>", "utf-8"))
             self.wfile.write(bytes("<p>Please paste it to your .env file.</p>", "utf-8"))
-            self.wfile.write(bytes("<p>WITHINGS_ACCESS_TOKEN=%s<br>" % credentials.access_token, "utf-8"))
+            self.wfile.write(bytes("<p>WITHINGS_CLIENT_ID=%s<br>" % os.environ['WITHINGS_CLIENT_ID'], "utf-8"))
+            self.wfile.write(bytes("WITHINGS_CONSUMER_SECRET=%s<br>" % os.environ['WITHINGS_CONSUMER_SECRET'], "utf-8"))
+            self.wfile.write(bytes("WITHINGS_ACCESS_TOKEN=%s<br>" % credentials.access_token, "utf-8"))
             self.wfile.write(bytes("WITHINGS_TOKEN_TYPE=%s<br>" % credentials.token_type, "utf-8"))
             self.wfile.write(bytes("WITHINGS_REFRESH_TOKEN=%s<br>" % credentials.refresh_token, "utf-8"))
             self.wfile.write(bytes("WITHINGS_USERID=%s<br>" % credentials.userid, "utf-8"))
             self.wfile.write(bytes("WITHINGS_EXPIRES_IN=%s<br>" % credentials.expires_in, "utf-8"))
-            self.wfile.write(bytes("WITHINGS_CREATED=%s</p>" % credentials.created, "utf-8"))
+            self.wfile.write(bytes("WITHINGS_CREATED=%s<br>" % credentials.created, "utf-8"))
+            self.wfile.write(bytes("TZ=Your/Timezone</p>", "utf-8"))
             self.wfile.write(bytes("</body></html>", "utf-8"))
             sys.exit(0)
 
 if __name__ == "__main__":
     authorize_url = auth.get_authorize_url()
-    logger.info("------\nURL: {url}\n------".format(url=authorize_url))
-    webbrowser.open(authorize_url)
+    logger.info("Open URL and approve it:\n\n{url}\n\n".format(url=authorize_url))
 
-    webServer = HTTPServer((hostName, serverPort), MyServer)
+    webServer = HTTPServer(('', serverPort), MyServer)
     try:
         webServer.serve_forever()
     except SystemExit:
-        pass
-
-    webServer.server_close()
-    logger.info("Create Token Successfully!")
+        webServer.server_close()
+        logger.info("Create Token Successfully!")
