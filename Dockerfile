@@ -10,4 +10,6 @@ RUN pip3 install --upgrade pip && \
 
 COPY . ${WORKDIR}
 
+EXPOSE 8000
+
 CMD [ "python3", "./main.py" ]

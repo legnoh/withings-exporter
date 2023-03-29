@@ -34,7 +34,7 @@ docker run -p 8000:8000 \
 vi .env
 
 # run exporter(with above .env file)
-docker run -p 9101:9101 \
+docker run -p 8000:8000 \
     --env-file='.env' \
     legnoh/withings-exporter
 ```
