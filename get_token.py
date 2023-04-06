@@ -23,7 +23,7 @@ auth = WithingsAuth(
 class MyServer(BaseHTTPRequestHandler):
 
     def do_GET(self):
-        if self.path.startswith("/?code="):
+        if self.path.startswith("/?"):
             req = urllib.parse.urlparse(self.path)
             query = urllib.parse.parse_qs(req.query)
             credentials = auth.get_credentials(query['code'][0])
