@@ -40,7 +40,7 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/withings-exporter:latest
 
       - name: Restart Docker on RaspberryPi
-        uses: benc-uk/workflow-dispatch@v1.2.2
+        uses: benc-uk/workflow-dispatch@v1.2.3
         with:
           repo: legnoh/life-metrics-grafana-deployment
           workflow: Reset docker-compose setting
