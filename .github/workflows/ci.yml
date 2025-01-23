@@ -2,8 +2,7 @@ name: ci
 
 on:
   pull_request:
-    branches:
-    - main
+    branches: [main]
 
 jobs:
   docker-build-and-push:

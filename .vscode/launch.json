@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "main",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
@@ -14,7 +14,7 @@
         },
         {
             "name": "get-token",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "get_token.py",
             "console": "integratedTerminal",

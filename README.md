@@ -28,7 +28,7 @@ export WITHINGS_CONSUMER_SECRET="YOURCLIENTSECRET"
 docker run -p 8000:8000 \
     --env WITHINGS_CLIENT_ID \
     --env WITHINGS_CONSUMER_SECRET \
-    legnoh/withings-exporter python3 get_token.py
+    legnoh/withings-exporter uv run get_token.py
 
 # paste your generated data to .env (and edit TZ)
 vi .env
@@ -46,22 +46,22 @@ Alternatively, it can be started from the source.
 ```sh
 # clone
 git clone https://github.com/legnoh/withings_exporter.git && cd withings_exporter
-pipenv install
+uv sync
 
 # prepare env file for your apps
 cp example/example.env .env
 
 # input WITHINGS_CLIENT_ID, WITHINGS_CONSUMER_SECRET
-vi .env
+code .env
 
 # exec get_token.py(in your browser)
-pipenv run get-token
+uv run get_token.py
 
 # paste your env to .env 3rd block (and edit TZ)
-vi .env
+code .env
 
 # run exporter
-pipenv run main
+uv run main.py
 ```
 
 ## Metrics

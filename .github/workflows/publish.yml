@@ -2,8 +2,7 @@ name: publish
 
 on:
   push:
-    branches:
-    - main
+    branches: [main]
     paths-ignore:
     - '.github/**'
     - '.vscode/**'
@@ -38,10 +37,3 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/withings-exporter:latest
-
-      - name: Restart Docker on RaspberryPi
-        uses: benc-uk/workflow-dispatch@v1.2.4
-        with:
-          repo: legnoh/life-metrics-grafana-deployment
-          workflow: Reset docker-compose setting
-          token: ${{ secrets.PERSONAL_TOKEN }}

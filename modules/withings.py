@@ -15,7 +15,7 @@ def get_configs(logic):
 
     for key in keys:
         if logic == 'env':
-            env_key = "WITHINGS_{key}".format(key=key.upper())
+            env_key = f"WITHINGS_{key.upper()}"
             if os.getenv(env_key) != None:
                 credentials[key] = os.getenv(env_key)
                 continue
@@ -23,7 +23,7 @@ def get_configs(logic):
                 return None
         elif logic == 'file':
             try:
-                with open('./config/tmp/{key}'.format(key=key), "r") as f:
+                with open(f"./config/tmp/{key}", "r") as f:
                     credentials[key] = f.read()
             except IOError:
                 return None
@@ -44,7 +44,7 @@ def cache_config(api: WithingsApi):
     
     for key in keys:
         try:
-            with open('./config/tmp/{key}'.format(key=key), "w") as f:
+            with open(f"./config/tmp/{key}", "w") as f:
                 f.write(str(getattr(api._credentials,key)))
         except IOError:
             return None

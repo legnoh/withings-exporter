@@ -1,4 +1,4 @@
-import os,time,yaml, logging, sys
+import os,time,yaml,logging,sys
 import modules.withings as wi
 from prometheus_client import CollectorRegistry, start_http_server
 
@@ -8,21 +8,21 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s : %(message)s', datefmt="%Y-%m-%dT%H:%M:%S%z")
 
     for method in ['env', 'file']:
-        logger.debug("try to use {method} credential...".format(method=method))
+        logger.debug(f"try to use {method} credential...")
         api = wi.get_configs(method)
         if api == None:
-            logger.warning("auth({method}) is broken. try to another one...".format(method=method))
+            logger.warning(f"auth({method}) is broken. try to another one...")
             continue
         if wi.check_auth(api) == False:
-            logger.warning("credential({method}) is expiring soon or already expired. try to refreshing...".format(method=method))
+            logger.warning(f"credential({method}) is expiring soon or already expired. try to refreshing...")
             api = wi.refresh_config(api)
             if api == None:
-                logger.warning("refreshtoken({method}) is failed. try to another one...".format(method=method))
+                logger.warning(f"refreshtoken({method}) is failed. try to another one...")
             else:
-                logger.info("credential({method}) is active(refreshed).".format(method=method))
+                logger.info(f"credential({method}) is active(refreshed).")
                 break
         else:
-            logger.info("credential({method}) is active.".format(method=method))
+            logger.info(f"credential({method}) is active.")
             break
 
     if api == None:

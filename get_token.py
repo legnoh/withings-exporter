@@ -2,8 +2,8 @@ import logging,os,sys,urllib
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from withings_api import WithingsAuth, AuthScope
 
-hostName = "localhost"
-serverPort = 8000
+HOSTNAME = "localhost"
+PORT = 8000
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 auth = WithingsAuth(
     client_id=os.environ['WITHINGS_CLIENT_ID'],
     consumer_secret=os.environ['WITHINGS_CONSUMER_SECRET'],
-    callback_uri= "http://{host}:{port}/".format(host=hostName, port=serverPort),
+    callback_uri= f"http://{HOSTNAME}:{PORT}/",
     scope=(
         AuthScope.USER_ACTIVITY,
         AuthScope.USER_METRICS,
@@ -47,9 +47,9 @@ class MyServer(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     authorize_url = auth.get_authorize_url()
-    logger.info("Open URL and approve it:\n\n{url}\n\n".format(url=authorize_url))
+    logger.info(f"Open URL and approve it:\n\n{authorize_url}\n\n")
 
-    webServer = HTTPServer(('', serverPort), MyServer)
+    webServer = HTTPServer(('', PORT), MyServer)
     try:
         webServer.serve_forever()
     except SystemExit:
