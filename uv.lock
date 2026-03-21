@@ -242,6 +242,6 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "prometheus-client", specifier = ">=0.24.1" },
-    { name = "pyyaml", specifier = ">=6.0.2" },
+    { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "withings-api", specifier = ">=2.4.0" },
 ]
