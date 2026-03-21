@@ -3,7 +3,7 @@ name = "withings-exporter"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14.3"
 dependencies = [
     "prometheus-client>=0.24.1",
     "pyyaml>=6.0.3",
