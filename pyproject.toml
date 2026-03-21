@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14.3"
 dependencies = [
+    "legnoh-withings>=0.0.1",
     "prometheus-client>=0.24.1",
     "pyyaml>=6.0.3",
-    "withings-api>=2.4.0",
 ]

@@ -35,6 +35,9 @@ if __name__ == "__main__":
     with open('config/metrics.yml', 'r') as stream:
         config = yaml.load(stream, Loader=yaml.FullLoader)
 
+    activity_fields = list(config['activity']['metrics'].keys())
+    sleep_fields = list(config['sleep']['metrics'].keys())
+
     meas_metrics = {}
     activity_metrics = {}
     sleep_metrics = {}
@@ -51,28 +54,34 @@ if __name__ == "__main__":
         # get measurements
         logger.info("gathering measurement data...")
         res = wi.get_latest_meas_datas(api)
-        for measuregrp in res.measuregrps:
-            for measure in measuregrp.measures:
+        for measuregrp in res:
+            for measure in measuregrp.get('measures', []):
+                measure_type = measure.get('type')
+                if measure_type not in config['meas']['metrics']:
+                    continue
+
                 labels = [
-                    int(measuregrp.category),
-                    measuregrp.deviceid,
+                    int(measuregrp.get('category')),
+                    measuregrp.get('deviceid'),
                 ]
-                if measure.type not in meas_metrics:
-                    meas_metrics[measure.type] = wi.create_metric_instance(config['meas']['metrics'][measure.type], registry, 'withings_meas_')
-                wi.set_metrics(meas_metrics[measure.type], labels, measure.value * (10 ** measure.unit))
+                if measure_type not in meas_metrics:
+                    meas_metrics[measure_type] = wi.create_metric_instance(config['meas']['metrics'][measure_type], registry, 'withings_meas_')
+                wi.set_metrics(meas_metrics[measure_type], labels, measure.get('value') * (10 ** measure.get('unit')))
 
         # get activities
         logger.info("gathering activity data...")
-        activities = wi.get_latest_activity_datas(api)
+        activities = wi.get_latest_activity_datas(api, activity_fields)
         for activity in activities:
             labels = [
-                activity.deviceid,
-                activity.brand,
-                activity.is_tracker,
+                activity.get('deviceid'),
+                activity.get('brand'),
+                activity.get('is_tracker'),
             ]
 
-            for k, v in list(activity):
+            for k, v in activity.items():
                 if k in config['activity']['labels']['key'] or k in config['activity']['labels']['exclude']:
+                    continue
+                if k not in config['activity']['metrics']:
                     continue
                 if k not in activity_metrics:
                     activity_metrics[k] = wi.create_metric_instance(config['activity']['metrics'][k], registry, 'withings_activity_')
@@ -80,15 +89,17 @@ if __name__ == "__main__":
 
         # get sleep series
         logger.info("gathering sleep data...")
-        sleepseries = wi.get_latest_sleep_datas(api)
-        if sleepseries == None:
+        sleepseries = wi.get_latest_sleep_datas(api, sleep_fields)
+        if not sleepseries:
             logger.info("no sleepseries data... skipped")
         else:
             for sleep_data in sleepseries:
                 labels = [
-                    int(sleep_data.model),
+                    int(sleep_data.get('model')),
                 ]
-                for k, v in list(sleep_data.data):
+                for k, v in sleep_data.get('data', {}).items():
+                    if k not in config['sleep']['metrics']:
+                        continue
                     if k not in sleep_metrics:
                         sleep_metrics[k] = wi.create_metric_instance(config['sleep']['metrics'][k], registry, 'withings_sleep_')
                     wi.set_metrics(sleep_metrics[k], labels, v)
