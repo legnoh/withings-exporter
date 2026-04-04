@@ -2,6 +2,9 @@ import os,time,yaml,logging,sys
 import modules.withings as wi
 from prometheus_client import CollectorRegistry, start_http_server
 
+PORT = int(os.environ.get('PORT', 8000))
+SLEEP_INTERVAL = int(os.environ.get('SLEEP_INTERVAL', 60))
+
 if __name__ == "__main__":
 
     logger = logging.getLogger(__name__)
@@ -30,7 +33,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     registry = CollectorRegistry()
-    start_http_server(int(os.environ.get('PORT', 8000)), registry=registry)
+    start_http_server(PORT, registry=registry)
 
     with open('config/metrics.yml', 'r') as stream:
         config = yaml.load(stream, Loader=yaml.FullLoader)
@@ -105,4 +108,4 @@ if __name__ == "__main__":
                     wi.set_metrics(sleep_metrics[k], labels, v)
 
         logger.info("gathering health data successfull!")
-        time.sleep(60)
+        time.sleep(SLEEP_INTERVAL)
