@@ -7,5 +7,5 @@ requires-python = ">=3.15.2"
 dependencies = [
     "legnoh-withings>=0.0.1",
     "prometheus-client>=0.26.0",
-    "pyyaml>=6.0.3",
+    "pyyaml>=6.0.4",
 ]
